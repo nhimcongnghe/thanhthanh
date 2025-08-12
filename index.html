@@ -50,7 +50,6 @@
         /* Hero section specific styling adjustments */
         #hero h1 {
             font-family: 'Pacifico', cursive; /* Keep Pacifico font */
-            /* Text color will be handled by body's text color and gradient-text class */
         }
         /* Gradient text reverted to original boilerplate colors */
         #hero h1 .gradient-text {
@@ -62,30 +61,28 @@
         /* Primary button gradient reverted to original boilerplate colors */
         #hero .btn-primary-gradient {
             background: linear-gradient(to right, var(--cyan-400), var(--fuchsia-500));
-            color: theme('colors.neutral.900'); /* Revert to neutral-900 */
+            color: theme('colors.neutral.900');
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            /* box-shadow will be applied by Tailwind's shadow-lg and hover:scale-[1.02] */
         }
         #hero .btn-primary-gradient:hover {
-            transform: scale(1.02); /* Original scale */
-            box-shadow: theme('boxShadow.lg'); /* Original shadow from Tailwind */
+            transform: scale(1.02);
+            box-shadow: theme('boxShadow.lg');
         }
 
         /* Secondary button reverted to original boilerplate colors */
         #hero .btn-secondary {
-            border: 1px solid rgba(255,255,255,.15); /* Original border */
-            color: rgba(255,255,255,.9); /* Original text-white/90 */
-            transition: background-color 0.3s ease; /* Ensure smooth transition */
+            border: 1px solid rgba(255,255,255,.15);
+            color: rgba(255,255,255,.9);
+            transition: background-color 0.3s ease;
         }
         #hero .btn-secondary:hover {
-            background-color: rgba(255,255,255,.1); /* Original hover bg-white/10 */
+            background-color: rgba(255,255,255,.1);
         }
-        /* No specific light mode overrides for btn-secondary needed here, Tailwind handles it */
 
         /* Gallery image adjustments */
         #zone-2 img {
-            border: 2px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         #zone-2 img:hover {
@@ -96,7 +93,7 @@
         /* Styling for the call-to-action button in Zone 3 */
         #zone-3 .btn-primary-gradient {
             background: linear-gradient(to right, var(--cyan-400), var(--fuchsia-500));
-            color: theme('colors.neutral.900'); /* Revert to neutral-900 */
+            color: theme('colors.neutral.900');
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         #zone-3 .btn-primary-gradient:hover {
@@ -106,26 +103,25 @@
 
         /* Ensure correct text colors based on Tailwind for sections */
         section h2, section h3 {
-            color: theme('colors.neutral.100'); /* Default for dark theme, revert from neon/pink */
+            color: theme('colors.neutral.100');
         }
         body:not(.dark) section h2, body:not(.dark) section h3 {
-            color: theme('colors.neutral.900'); /* Default for light theme */
+            color: theme('colors.neutral.900');
         }
         section p {
-            color: theme('colors.neutral.300'); /* Default for dark theme */
+            color: theme('colors.neutral.300');
         }
         body:not(.dark) section p {
-            color: theme('colors.neutral.700'); /* Default for light theme */
+            color: theme('colors.neutral.700');
         }
         
         /* Nav text colors */
         header #nav nav a {
-            color: theme('colors.neutral.300'); /* Default from boilerplate */
+            color: theme('colors.neutral.300');
         }
         header #nav nav a:hover {
-            color: theme('colors.white'); /* Default from boilerplate */
+            color: theme('colors.white');
         }
-        /* Light mode nav text colors will be handled by class removal in JS */
 
         /* Theme toggle button text color */
         #themeToggle {
@@ -134,12 +130,101 @@
 
         /* Footer text color */
         footer p {
-            color: theme('colors.neutral.400'); /* Default from boilerplate */
+            color: theme('colors.neutral.400');
         }
-        /* Light mode footer text colors will be handled by class removal in JS */
+
+        /* Styles for the audio player container */
+        .audio-player-container-footer {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+        .audio-player-footer {
+            width: 100%;
+            max-width: 400px; /* Max width for the audio player */
+            background: rgba(255,255,255,.08); /* Glass effect background */
+            border-radius: 9999px; /* Fully rounded */
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(255,255,255,.12);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        /* Customizing default audio player controls for WebKit (Chrome, Safari) */
+        .audio-player-footer::-webkit-media-controls-panel {
+            background-color: transparent !important; /* Force transparent background */
+            color: white !important; /* Ensure controls are white */
+        }
+        .audio-player-footer::-webkit-media-controls-play-button,
+        .audio-player-footer::-webkit-media-controls-current-time-display,
+        .audio-player-footer::-webkit-media-controls-time-remaining-display,
+        .audio-player-footer::-webkit-media-controls-timeline,
+        .audio-player-footer::-webkit-media-controls-volume-slider {
+            color: white !important; /* Ensure all controls are white */
+            filter: none !important; /* Remove any conflicting filter */
+        }
+
+        /* Light mode adjustments for audio player */
+        body:not(.dark) .audio-player-footer {
+            background: rgba(255,255,255,.7);
+            border: 1px solid rgba(0,0,0,.08);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        body:not(.dark) .audio-player-footer::-webkit-media-controls-panel {
+            background-color: transparent !important;
+            color: #333 !important; /* Darker controls for light background */
+        }
+        body:not(.dark) .audio-player-footer::-webkit-media-controls-play-button,
+        body:not(.dark) .audio-player-footer::-webkit-media-controls-current-time-display,
+        body:not(.dark) .audio-player-footer::-webkit-media-controls-time-remaining-display,
+        body:not(.dark) .audio-player-footer::-webkit-media-controls-timeline,
+        body:not(.dark) .audio-player-footer::-webkit-media-controls-volume-slider {
+            filter: none !important;
+            color: #333 !important; /* Darker controls for light background */
+        }
+
+        /* Heart effect styling */
+        .heart-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Allows clicks to pass through */
+            overflow: hidden; /* Prevents hearts from creating scrollbars */
+            z-index: 9999; /* Ensures hearts are on top of other content */
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px; /* Base size */
+            color: #f472b6; /* Fuchsia color from your theme */
+            /* Animation properties will be set via JS to use custom properties */
+            animation: floatEverywhere ease-out forwards; 
+            opacity: 0; /* Start hidden */
+            text-shadow: 0 0 5px rgba(255,255,255,0.5); /* Subtle glow */
+            /* Initial transform for animation */
+            transform: scale(0.5);
+        }
+
+        @keyframes floatEverywhere {
+            0% {
+                opacity: 0;
+                transform: scale(0.5) translateX(0) translateY(0) rotate(0deg);
+            }
+            20% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                /* Move from its initial position (left, top set in JS) by these offsets */
+                transform: scale(1.5) translateX(var(--offset-x)) translateY(var(--offset-y)) rotate(var(--rotate-end, 0deg));
+            }
+        }
     </style>
 </head>
-<body class="min-h-screen bg-neutral-950 text-neutral-100 antialiased selection:bg-fuchsia-500/20 selection:text-white">
+<body class="min-h-screen bg-neutral-950 relentlessly text-neutral-100 antialiased selection:bg-fuchsia-500/20 selection:text-white">
     <div class="aurora"></div>
     <div class="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(60%_60%_at_10%_10%,rgba(168,85,247,.15),transparent),radial-gradient(40%_40%_at_90%_10%,rgba(34,211,238,.12),transparent),radial-gradient(40%_40%_at_50%_90%,rgba(236,72,153,.10),transparent)]"></div>
 
@@ -158,7 +243,6 @@
                 </nav>
                 <div class="flex items-center gap-2">
                     <button id="themeToggle" class="ring-focus rounded-xl px-3 py-2 text-sm glass hover:bg-white/10">Đổi theme</button>
-                    <!-- Removed main CTA button here as per request to simplify connections -->
                 </div>
             </div>
         </div>
@@ -217,7 +301,7 @@
                 </article>
             </div>
         </section>
-
+        
         <section id="zone-2" class="mb-16">
             <header class="mb-6 flex items-end justify-between gap-4">
                 <h2 class="text-2xl font-bold tracking-tight md:text-3xl">Khoảnh khắc đáng yêu</h2>
@@ -254,6 +338,15 @@
             </div>
         </section>
     </main>
+    
+    <!-- Audio Player Section - Placed above footer -->
+    <div class="audio-player-container-footer mx-auto max-w-4xl px-4">
+        <audio id="backgroundAudio" controls autoplay loop class="audio-player-footer">
+            <!-- VUI LÒNG THAY THẾ 'YOUR_ACTUAL_DIRECT_AUDIO_LINK_HERE.mp3' BẰNG ĐƯỜNG DẪN TRỰC TIẾP TỚI TỆP MP3 CỦA BẠN. -->
+            <source src="https://audio.jukehost.co.uk/b2TV7rTMtGoGvvfYkhppHa0AgmNSbgHn" type="audio/mpeg">
+            Trình duyệt của bạn không hỗ trợ phát audio.
+        </audio>
+    </div>
 
     <section class="mx-auto max-w-4xl px-4 pb-8">
         <figure class="rounded-3xl border border-white/10 bg-white/5 p-6 text-center">
@@ -268,16 +361,21 @@
         </div>
     </footer>
 
+    <!-- Heart Effect Container -->
+    <div id="heartContainer" class="heart-container"></div>
+
     <script>
+        // Set current year for footer
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Theme Toggle Logic
         const root = document.documentElement;
-        const key = 'theme:preferred';
+        const themeKey = 'theme:preferred';
         const applyTheme = (mode) => {
             if (mode === 'dark') {
                 root.classList.add('dark');
                 document.body.classList.remove('bg-white', 'text-neutral-900');
                 document.body.classList.add('bg-neutral-950', 'text-neutral-100');
-                
                 document.querySelectorAll('.glass-light').forEach(el => {
                     el.classList.remove('glass-light');
                     el.classList.add('glass');
@@ -286,7 +384,6 @@
                 root.classList.remove('dark');
                 document.body.classList.remove('bg-neutral-950', 'text-neutral-100');
                 document.body.classList.add('bg-white', 'text-neutral-900');
-                
                 document.querySelectorAll('.glass').forEach(el => {
                     el.classList.remove('glass');
                     el.classList.add('glass-light');
@@ -295,15 +392,16 @@
         };
 
         const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const saved = localStorage.getItem(key);
-        applyTheme(saved ?? (systemDark ? 'dark' : 'light'));
+        const savedTheme = localStorage.getItem(themeKey);
+        applyTheme(savedTheme ?? (systemDark ? 'dark' : 'light'));
 
         document.getElementById('themeToggle').addEventListener('click', () => {
-            const next = root.classList.contains('dark') ? 'light' : 'dark';
-            localStorage.setItem(key, next);
-            applyTheme(next);
+            const nextTheme = root.classList.contains('dark') ? 'light' : 'dark';
+            localStorage.setItem(themeKey, nextTheme);
+            applyTheme(nextTheme);
         });
 
+        // Sticky Nav Shadow Logic
         const nav = document.getElementById('nav');
         const onScroll = () => {
             const box = nav.querySelector('div>div');
@@ -312,6 +410,7 @@
         };
         window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
         
+        // Image Slide-in Animation Logic
         const images = document.querySelectorAll('#zone-2 img');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -326,6 +425,86 @@
         images.forEach(image => {
             observer.observe(image);
         });
+
+        // Heart Effect Logic
+        const audioPlayer = document.getElementById('backgroundAudio');
+        const heartContainer = document.getElementById('heartContainer');
+        let heartInterval; // To store the interval ID
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️'; // Or any other heart emoji or SVG
+
+            // Randomize starting position anywhere on the screen
+            const startX = Math.random() * window.innerWidth;
+            const startY = Math.random() * window.innerHeight; // Start from any vertical position
+            heart.style.left = `${startX}px`;
+            heart.style.top = `${startY}px`; // Use top for starting vertical position
+
+            // Randomize size
+            const size = Math.random() * 20 + 15; // From 15px to 35px
+            heart.style.fontSize = `${size}px`;
+
+            // Randomize animation duration
+            const duration = Math.random() * 3 + 4; // From 4s to 7s
+            heart.style.animationDuration = `${duration}s`;
+
+            // Randomize animation delay (so they don't all start at once)
+            const delay = Math.random() * 0.5; // Up to 0.5s delay
+            heart.style.animationDelay = `${delay}s`;
+
+            // Define random offsets for the animation
+            // These offsets are relative to the heart's starting (left, top) position
+            const offsetX = (Math.random() - 0.5) * 400; // Drift left/right by -200px to 200px
+            const offsetY = (Math.random() - 0.5) * window.innerHeight * 0.8; // Drift up/down by -40% to 40% of viewport height
+            const rotateEnd = (Math.random() - 0.5) * 720; // Rotate by -360 to 360 degrees
+
+            heart.style.setProperty('--offset-x', `${offsetX}px`);
+            heart.style.setProperty('--offset-y', `${offsetY}px`);
+            heart.style.setProperty('--rotate-end', `${rotateEnd}deg`);
+
+            heartContainer.appendChild(heart);
+
+            // Remove heart after animation to prevent DOM clutter
+            heart.addEventListener('animationend', () => {
+                heart.remove();
+            });
+        }
+
+        // Event listener for when the audio starts playing
+        audioPlayer.addEventListener('play', () => {
+            if (heartInterval) {
+                clearInterval(heartInterval);
+            }
+            // Start generating hearts more frequently
+            heartInterval = setInterval(() => {
+                createHeart();
+            }, Math.random() * 200 + 100); // Between 100ms and 300ms
+        });
+
+        // Event listener for when the audio is paused or ended
+        audioPlayer.addEventListener('pause', () => {
+            if (heartInterval) {
+                clearInterval(heartInterval);
+                heartInterval = null;
+            }
+        });
+
+        audioPlayer.addEventListener('ended', () => {
+            if (heartInterval) {
+                clearInterval(heartInterval);
+                heartInterval = null;
+            }
+        });
+
+        // Ensure hearts stop if page is closed or navigated away (optional, but good practice)
+        window.addEventListener('beforeunload', () => {
+            if (heartInterval) {
+                clearInterval(heartInterval);
+            }
+        });
+
     </script>
 </body>
 </html>
