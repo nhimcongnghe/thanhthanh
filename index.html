@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Thanh Thanh Streamer - Ngầu Lòi</title>
+    <meta name="color-scheme" content="dark light" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Original base colors */
+        :root { 
+            --ring: 44 100% 50%; /* Original ring color HSL */
+            --cyan-400: #22d3ee;
+            --fuchsia-500: #f472b6;
+            --rose-500: #f43f5e;
+            --purple-400: #a78bfa;
+        }
+
+        body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif; }
+        
+        /* Aurora effect reverted to original boilerplate colors and properties */
+        .aurora {
+            position: absolute; inset: -20vmax; z-index: -1; filter: blur(90px); opacity: .5;
+            background: conic-gradient(from 180deg at 50% 50%, var(--cyan-400), var(--purple-400), var(--fuchsia-500), var(--cyan-400));
+            animation: spin 40s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        /* Glass effect reverted to original boilerplate properties */
+        .glass { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); }
+        .glass-light { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(0,0,0,.08); background: rgba(255,255,255,.7); }
+        
+        /* Focus ring reverted to original boilerplate */
+        .ring-focus:focus-visible { outline: none; box-shadow: 0 0 0 6px hsl(var(--ring) / .25); }
+        
+        /* Slide-in animation for gallery - kept as is */
+        .slide-in-right {
+            transform: translateX(100%);
+            opacity: 0;
+            transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+        }
+        .slide-in-right.visible {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        /* Hero section specific styling adjustments */
+        #hero h1 {
+            font-family: 'Pacifico', cursive; /* Keep Pacifico font */
+            /* Text color will be handled by body's text color and gradient-text class */
+        }
+        /* Gradient text reverted to original boilerplate colors */
+        #hero h1 .gradient-text {
+            background: linear-gradient(to right, var(--cyan-400), var(--fuchsia-500), var(--rose-500));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Primary button gradient reverted to original boilerplate colors */
+        #hero .btn-primary-gradient {
+            background: linear-gradient(to right, var(--cyan-400), var(--fuchsia-500));
+            color: theme('colors.neutral.900'); /* Revert to neutral-900 */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            /* box-shadow will be applied by Tailwind's shadow-lg and hover:scale-[1.02] */
+        }
+        #hero .btn-primary-gradient:hover {
+            transform: scale(1.02); /* Original scale */
+            box-shadow: theme('boxShadow.lg'); /* Original shadow from Tailwind */
+        }
+
+        /* Secondary button reverted to original boilerplate colors */
+        #hero .btn-secondary {
+            border: 1px solid rgba(255,255,255,.15); /* Original border */
+            color: rgba(255,255,255,.9); /* Original text-white/90 */
+            transition: background-color 0.3s ease; /* Ensure smooth transition */
+        }
+        #hero .btn-secondary:hover {
+            background-color: rgba(255,255,255,.1); /* Original hover bg-white/10 */
+        }
+        /* No specific light mode overrides for btn-secondary needed here, Tailwind handles it */
+
+        /* Gallery image adjustments */
+        #zone-2 img {
+            border: 2px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        #zone-2 img:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(34, 211, 238, 0.4); /* Cyan glow on hover (using cyan-400) */
+        }
+
+        /* Styling for the call-to-action button in Zone 3 */
+        #zone-3 .btn-primary-gradient {
+            background: linear-gradient(to right, var(--cyan-400), var(--fuchsia-500));
+            color: theme('colors.neutral.900'); /* Revert to neutral-900 */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        #zone-3 .btn-primary-gradient:hover {
+            transform: scale(1.02);
+            box-shadow: theme('boxShadow.lg');
+        }
+
+        /* Ensure correct text colors based on Tailwind for sections */
+        section h2, section h3 {
+            color: theme('colors.neutral.100'); /* Default for dark theme, revert from neon/pink */
+        }
+        body:not(.dark) section h2, body:not(.dark) section h3 {
+            color: theme('colors.neutral.900'); /* Default for light theme */
+        }
+        section p {
+            color: theme('colors.neutral.300'); /* Default for dark theme */
+        }
+        body:not(.dark) section p {
+            color: theme('colors.neutral.700'); /* Default for light theme */
+        }
+        
+        /* Nav text colors */
+        header #nav nav a {
+            color: theme('colors.neutral.300'); /* Default from boilerplate */
+        }
+        header #nav nav a:hover {
+            color: theme('colors.white'); /* Default from boilerplate */
+        }
+        /* Light mode nav text colors will be handled by class removal in JS */
+
+        /* Theme toggle button text color */
+        #themeToggle {
+            /* Tailwind handles text color based on parent glass/glass-light classes */
+        }
+
+        /* Footer text color */
+        footer p {
+            color: theme('colors.neutral.400'); /* Default from boilerplate */
+        }
+        /* Light mode footer text colors will be handled by class removal in JS */
+    </style>
+</head>
+<body class="min-h-screen bg-neutral-950 text-neutral-100 antialiased selection:bg-fuchsia-500/20 selection:text-white">
+    <div class="aurora"></div>
+    <div class="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(60%_60%_at_10%_10%,rgba(168,85,247,.15),transparent),radial-gradient(40%_40%_at_90%_10%,rgba(34,211,238,.12),transparent),radial-gradient(40%_40%_at_50%_90%,rgba(236,72,153,.10),transparent)]"></div>
+
+    <header id="nav" class="sticky top-0 z-50">
+        <div class="mx-auto max-w-7xl px-4">
+            <div class="mt-4 mb-3 flex items-center justify-between rounded-2xl glass px-4 py-3 transition-all dark:glass">
+                <a href="#" class="flex items-center gap-2">
+                    <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-tr from-cyan-400 to-fuchsia-500 text-neutral-900 font-extrabold">T</span>
+                    <span class="text-lg font-semibold tracking-wide">Thanh&nbsp;Thanh</span>
+                </a>
+                <nav class="hidden gap-6 md:flex text-sm text-neutral-300">
+                    <a href="#hero" class="hover:text-white">Giới thiệu</a>
+                    <a href="#zone-1" class="hover:text-white">Kênh Stream</a>
+                    <a href="#zone-2" class="hover:text-white">Khoảnh khắc</a>
+                    <a href="#zone-3" class="hover:text-white">Kết nối</a>
+                </nav>
+                <div class="flex items-center gap-2">
+                    <button id="themeToggle" class="ring-focus rounded-xl px-3 py-2 text-sm glass hover:bg-white/10">Đổi theme</button>
+                    <!-- Removed main CTA button here as per request to simplify connections -->
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="hero" class="relative">
+        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 md:grid-cols-2 md:py-24">
+            <div>
+                <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-neutral-300">Chào bạn đến với thế giới của Thanh Thanh! ✨</span>
+                <h1 class="mt-4 text-4xl font-extrabold leading-tight md:text-6xl">
+                    Sống động cùng <span class="gradient-text">Thanh Thanh</span>
+                </h1>
+                <p class="mt-4 max-w-xl text-neutral-300">Cô nàng streamer đầy năng lượng, mang đến những buổi stream đáng yêu, những khoảnh khắc gaming hài hước và những tràng cười sảng khoái!</p>
+                <div class="mt-6 flex flex-wrap gap-3">
+                    <a id="cta" href="#zone-1" class="rounded-2xl px-5 py-3 font-semibold shadow-lg transition btn-primary-gradient">Khám phá kênh</a>
+                    <a href="https://www.tiktok.com/@bibibene1?is_from_webapp=1&sender_device=pc" target="_blank" class="rounded-2xl border px-5 py-3 font-semibold btn-secondary">Theo dõi TikTok</a>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="absolute -inset-6 -z-10 rounded-3xl bg-gradient-to-tr from-fuchsia-500/20 via-cyan-400/20 to-transparent blur-2xl"></div>
+                <figure class="aspect-[16/10] w-full overflow-hidden rounded-3xl border border-white/10 bg-black/40 shadow-2xl">
+                    <img src="https://sv2.anhsieuviet.com/2025/08/12/Untitled.jpg" alt="Ảnh đại diện Thanh Thanh" class="h-full w-full object-cover" loading="lazy" />
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <main class="mx-auto max-w-7xl px-4">
+        <section id="zone-1" class="relative mb-16 rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10">
+            <div class="absolute inset-x-0 -top-14 mx-auto h-28 w-28 rounded-3xl bg-gradient-to-tr from-cyan-400/20 to-fuchsia-500/20 blur-2xl"></div>
+            <header class="mb-6 flex items-end justify-between gap-4">
+                <h2 class="text-2xl font-bold tracking-tight md:text-3xl">Kênh Stream của Thanh Thanh</h2>
+                <span class="text-xs text-neutral-400">// Game, Chém gió & Vui vẻ</span>
+            </header>
+            <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <article class="group rounded-2xl border border-white/10 p-5 transition hover:-translate-y-1 hover:bg-white/5">
+                    <div class="mb-3 aspect-[16/9] overflow-hidden rounded-xl bg-neutral-900">
+                        <img src="https://sv2.anhsieuviet.com/2025/08/12/Untitled2.jpg" alt="Gaming Highlights" class="h-full w-full object-cover">
+                    </div>
+                    <h3 class="font-semibold">Những pha tấu hài đỉnh cao</h3>
+                    <p class="mt-1 text-sm text-neutral-300">Cùng Thanh Thanh trải nghiệm những khoảnh khắc ấn tượng trong các buổi live nhé😊</p>
+                </article>
+                <article class="group rounded-2xl border border-white/10 p-5 transition hover:-translate-y-1 hover:bg-white/5">
+                    <div class="mb-3 aspect-[16/9] overflow-hidden rounded-xl bg-neutral-900">
+                        <img src="https://sv2.anhsieuviet.com/2025/08/12/Untitled3.jpg" alt="Chatting Fun" class="h-full w-full object-cover">
+                    </div>
+                    <h3 class="font-semibold">Chém gió xuyên màn đêm</h3>
+                    <p class="mt-1 text-sm text-neutral-300">Nơi Thanh Thanh chia sẻ câu chuyện, lắng nghe và giao lưu cùng bạn bè.</p>
+                </article>
+                <article class="group rounded-2xl border border-white/10 p-5 transition hover:-translate-y-1 hover:bg-white/5">
+                    <div class="mb-3 aspect-[16/9] overflow-hidden rounded-xl bg-neutral-900">
+                        <img src="https://sv2.anhsieuviet.com/2025/08/12/Untitled4.jpg" alt="Special Events" class="h-full w-full object-cover">
+                    </div>
+                    <h3 class="font-semibold">Các sự kiện đặc biệt</h3>
+                    <p class="mt-1 text-sm text-neutral-300">Đừng bỏ lỡ những buổi stream sự kiện, mini game hay những màn cover bất ngờ từ Thanh Thanh!</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="zone-2" class="mb-16">
+            <header class="mb-6 flex items-end justify-between gap-4">
+                <h2 class="text-2xl font-bold tracking-tight md:text-3xl">Khoảnh khắc đáng yêu</h2>
+                <span class="text-xs text-neutral-400">// Bộ sưu tập ảnh & video</span>
+            </header>
+            <div class="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
+                <img class="h-28 w-full rounded-xl object-cover slide-in-right" loading="lazy" src="https://sv2.anhsieuviet.com/2025/08/12/TikVid.io_7454945722950061320_5.jpg" alt="Khoảnh khắc 1"/>
+                <img class="h-28 w-full rounded-xl object-cover slide-in-right" loading="lazy" src="https://sv2.anhsieuviet.com/2025/08/12/TikVid.io_7454945722950061320_4.jpg" alt="Khoảnh khắc 2"/>
+                <img class="h-28 w-full rounded-xl object-cover slide-in-right" loading="lazy" src="https://sv2.anhsieuviet.com/2025/08/12/TikVid.io_7454945722950061320_3.jpg" alt="Khoảnh khắc 3"/>
+                <img class="h-28 w-full rounded-xl object-cover slide-in-right" loading="lazy" src="https://sv2.anhsieuviet.com/2025/08/12/TikVid.io_7454945722950061320_2.jpg" alt="Khoảnh khắc 4"/>
+                <img class="h-28 w-full rounded-xl object-cover slide-in-right" loading="lazy" src="https://sv2.anhsieuviet.com/2025/08/12/TikVid.io_7454945722950061320_1.jpg" alt="Khoảnh khắc 5"/>
+                <img class="h-28 w-full rounded-xl object-cover slide-in-right" loading="lazy" src="https://images.unsplash.com/photo-1542728928-1413d1894ed1?q=80&w=500&auto=format&fit=crop" alt="Khoảnh khắc 6"/>
+            </div>
+        </section>
+
+        <section id="zone-3" class="relative mb-20 overflow-hidden rounded-3xl border border-white/10 p-8 md:p-12">
+            <div class="absolute -left-10 -top-10 h-40 w-40 rounded-full bg-cyan-400/20 blur-2xl"></div>
+            <div class="absolute -bottom-10 -right-10 h-40 w-40 rounded-full bg-fuchsia-500/20 blur-2xl"></div>
+            <div class="grid items-center gap-8 md:grid-cols-2">
+                <div>
+                    <h3 class="text-2xl font-bold md:text-3xl">Kết nối cùng Thanh Thanh!</h3>
+                    <p class="mt-2 max-w-prose text-neutral-300">Đừng bỏ lỡ bất kỳ khoảnh khắc nào! Hãy theo dõi Thanh Thanh trên TikTok và tham gia cộng đồng của cô ấy ngay hôm nay.</p>
+                    <div class="mt-6 flex flex-wrap gap-3 social-links-zone3">
+                        <a href="https://www.tiktok.com/@bibibene1?is_from_webapp=1&sender_device=pc" target="_blank" class="rounded-xl px-4 py-2 font-semibold btn-primary-gradient">TikTok của Thanh Thanh</a>
+                    </div>
+                </div>
+                <form class="glass rounded-2xl p-5">
+                    <label class="mb-2 block text-sm">Email của bạn</label>
+                    <input type="email" placeholder="email@example.com" class="ring-focus mb-4 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2 outline-none placeholder:text-neutral-400" />
+                    <label class="mb-2 block text-sm">Lời nhắn cho Thanh Thanh</label>
+                    <textarea placeholder="Bạn muốn nói gì với Thanh Thanh?" rows="3" class="ring-focus mb-4 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2 outline-none placeholder:text-neutral-400"></textarea>
+                    <button class="w-full rounded-xl bg-gradient-to-tr from-cyan-400 to-fuchsia-500 px-4 py-2 font-semibold text-neutral-900">Gửi lời nhắn</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <section class="mx-auto max-w-4xl px-4 pb-8">
+        <figure class="rounded-3xl border border-white/10 bg-white/5 p-6 text-center">
+            <blockquote class="text-balance text-lg text-neutral-300">“Cảm ơn vì đã luôn đồng hành cùng Thanh Thanh trên mọi chặng đường!”</blockquote>
+            <figcaption class="mt-2 text-sm text-neutral-400">#ThanhThanhFamily</figcaption>
+        </figure>
+    </section>
+
+    <footer class="border-t border-white/10 py-10 text-center text-sm text-neutral-400">
+        <div class="mx-auto max-w-7xl px-4">
+            <p>© <span id="year"></span> Thanh Thanh Streamer. Luôn <span class="text-white">ngầu lòi</span> và đáng yêu.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+        const root = document.documentElement;
+        const key = 'theme:preferred';
+        const applyTheme = (mode) => {
+            if (mode === 'dark') {
+                root.classList.add('dark');
+                document.body.classList.remove('bg-white', 'text-neutral-900');
+                document.body.classList.add('bg-neutral-950', 'text-neutral-100');
+                
+                document.querySelectorAll('.glass-light').forEach(el => {
+                    el.classList.remove('glass-light');
+                    el.classList.add('glass');
+                });
+            } else {
+                root.classList.remove('dark');
+                document.body.classList.remove('bg-neutral-950', 'text-neutral-100');
+                document.body.classList.add('bg-white', 'text-neutral-900');
+                
+                document.querySelectorAll('.glass').forEach(el => {
+                    el.classList.remove('glass');
+                    el.classList.add('glass-light');
+                });
+            }
+        };
+
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const saved = localStorage.getItem(key);
+        applyTheme(saved ?? (systemDark ? 'dark' : 'light'));
+
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            const next = root.classList.contains('dark') ? 'light' : 'dark';
+            localStorage.setItem(key, next);
+            applyTheme(next);
+        });
+
+        const nav = document.getElementById('nav');
+        const onScroll = () => {
+            const box = nav.querySelector('div>div');
+            if (window.scrollY > 10) { box.classList.add('shadow-2xl'); }
+            else { box.classList.remove('shadow-2xl'); }
+        };
+        window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+        
+        const images = document.querySelectorAll('#zone-2 img');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        images.forEach(image => {
+            observer.observe(image);
+        });
+    </script>
+</body>
+</html>
