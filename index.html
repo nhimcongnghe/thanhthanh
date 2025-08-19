@@ -10,33 +10,64 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Original base colors */
+        /* Tùy chỉnh CSS để cố định UI chính */
+        body, html {
+            overflow-x: hidden;
+            position: relative;
+        }
+
         :root { 
-            --ring: 44 100% 50%; /* Original ring color HSL */
+            --ring: 44 100% 50%;
             --cyan-400: #22d3ee;
             --fuchsia-500: #f472b6;
             --rose-500: #f43f5e;
             --purple-400: #a78bfa;
         }
 
-        body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif; }
-        
-        /* Aurora effect reverted to original boilerplate colors and properties */
-        .aurora {
-            position: absolute; inset: -20vmax; z-index: -1; filter: blur(90px); opacity: .5;
-            background: conic-gradient(from 180deg at 50% 50%, var(--cyan-400), var(--purple-400), var(--fuchsia-500), var(--cyan-400));
-            animation: spin 40s linear infinite;
+        body { 
+            font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif; 
+            /* Đảm bảo nội dung chính không bị xê dịch */
+            position: relative;
+            z-index: 1; /* Đẩy nội dung chính lên trên lớp nền */
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        
+
+        /* Các hiệu ứng nền được cố định */
+        .aurora {
+            position: fixed; /* Đặt cố định theo viewport */
+            top: 50%;
+            left: 50%;
+            width: 200vw;
+            height: 200vh;
+            z-index: -1;
+            filter: blur(90px);
+            opacity: .5;
+            background: conic-gradient(from 180deg at 50% 50%, var(--cyan-400), var(--purple-400), var(--fuchsia-500), var(--cyan-400));
+            animation: spin 10s linear infinite; /* Đã điều chỉnh tốc độ quay nhanh hơn */
+            will-change: transform; /* Tối ưu hóa hiệu suất animation */
+        }
+
+        /* Hiệu ứng gradient nền bổ sung */
+        .fixed-gradient-background {
+            position: fixed; /* Cố định tương tự aurora */
+            inset: 0;
+            z-index: -1;
+            background: radial-gradient(60% 60% at 10% 10%, rgba(168,85,247,.15), transparent), radial-gradient(40% 40% at 90% 10%, rgba(34,211,238,.12), transparent), radial-gradient(40% 40% at 50% 90%, rgba(236,72,153,.10), transparent);
+        }
+
+        /* Đã sửa keyframes để kết hợp translate và rotate */
+        @keyframes spin { 
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); } 
+        }
+
         /* Glass effect reverted to original boilerplate properties */
         .glass { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); }
         .glass-light { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(0,0,0,.08); background: rgba(255,255,255,.7); }
-        
+
         /* Focus ring reverted to original boilerplate */
         .ring-focus:focus-visible { outline: none; box-shadow: 0 0 0 6px hsl(var(--ring) / .25); }
-        
-        /* Slide-in animation for gallery - kept as is */
+
+        /* Slide-in animation for gallery */
         .slide-in-right {
             transform: translateX(100%);
             opacity: 0;
@@ -48,17 +79,12 @@
         }
 
         /* Hero section specific styling adjustments */
-        #hero h1 {
-            font-family: 'Pacifico', cursive; /* Keep Pacifico font */
-        }
-        /* Gradient text reverted to original boilerplate colors */
+        #hero h1 { font-family: 'Pacifico', cursive; }
         #hero h1 .gradient-text {
             background: linear-gradient(to right, var(--cyan-400), var(--fuchsia-500), var(--rose-500));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        
-        /* Primary button gradient reverted to original boilerplate colors */
         #hero .btn-primary-gradient {
             background: linear-gradient(to right, var(--cyan-400), var(--fuchsia-500));
             color: theme('colors.neutral.900');
@@ -68,16 +94,12 @@
             transform: scale(1.02);
             box-shadow: theme('boxShadow.lg');
         }
-
-        /* Secondary button reverted to original boilerplate colors */
         #hero .btn-secondary {
             border: 1px solid rgba(255,255,255,.15);
             color: rgba(255,255,255,.9);
             transition: background-color 0.3s ease;
         }
-        #hero .btn-secondary:hover {
-            background-color: rgba(255,255,255,.1);
-        }
+        #hero .btn-secondary:hover { background-color: rgba(255,255,255,.1); }
 
         /* Gallery image adjustments */
         #zone-2 img {
@@ -87,7 +109,7 @@
         }
         #zone-2 img:hover {
             transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(34, 211, 238, 0.4); /* Cyan glow on hover (using cyan-400) */
+            box-shadow: 0 8px 25px rgba(34, 211, 238, 0.4);
         }
 
         /* Styling for the call-to-action button in Zone 3 */
@@ -102,36 +124,20 @@
         }
 
         /* Ensure correct text colors based on Tailwind for sections */
-        section h2, section h3 {
-            color: theme('colors.neutral.100');
-        }
-        body:not(.dark) section h2, body:not(.dark) section h3 {
-            color: theme('colors.neutral.900');
-        }
-        section p {
-            color: theme('colors.neutral.300');
-        }
-        body:not(.dark) section p {
-            color: theme('colors.neutral.700');
-        }
-        
+        section h2, section h3 { color: theme('colors.neutral.100'); }
+        body:not(.dark) section h2, body:not(.dark) section h3 { color: theme('colors.neutral.900'); }
+        section p { color: theme('colors.neutral.300'); }
+        body:not(.dark) section p { color: theme('colors.neutral.700'); }
+
         /* Nav text colors */
-        header #nav nav a {
-            color: theme('colors.neutral.300');
-        }
-        header #nav nav a:hover {
-            color: theme('colors.white');
-        }
+        header #nav nav a { color: theme('colors.neutral.300'); }
+        header #nav nav a:hover { color: theme('colors.white'); }
 
         /* Theme toggle button text color */
-        #themeToggle {
-            /* Tailwind handles text color based on parent glass/glass-light classes */
-        }
+        #themeToggle { }
 
         /* Footer text color */
-        footer p {
-            color: theme('colors.neutral.400');
-        }
+        footer p { color: theme('colors.neutral.400'); }
 
         /* Styles for the audio player container */
         .audio-player-container-footer {
@@ -142,28 +148,17 @@
         }
         .audio-player-footer {
             width: 100%;
-            max-width: 400px; /* Max width for the audio player */
-            background: rgba(255,255,255,.08); /* Glass effect background */
-            border-radius: 9999px; /* Fully rounded */
+            max-width: 400px;
+            background: rgba(255,255,255,.08);
+            border-radius: 9999px;
             padding: 0.5rem 1rem;
             border: 1px solid rgba(255,255,255,.12);
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
         }
-        /* Customizing default audio player controls for WebKit (Chrome, Safari) */
-        .audio-player-footer::-webkit-media-controls-panel {
-            background-color: transparent !important; /* Force transparent background */
-            color: white !important; /* Ensure controls are white */
-        }
-        .audio-player-footer::-webkit-media-controls-play-button,
-        .audio-player-footer::-webkit-media-controls-current-time-display,
-        .audio-player-footer::-webkit-media-controls-time-remaining-display,
-        .audio-player-footer::-webkit-media-controls-timeline,
-        .audio-player-footer::-webkit-media-controls-volume-slider {
-            color: white !important; /* Ensure all controls are white */
-            filter: none !important; /* Remove any conflicting filter */
-        }
+        .audio-player-footer::-webkit-media-controls-panel { background-color: transparent !important; color: white !important; }
+        .audio-player-footer::-webkit-media-controls-play-button, .audio-player-footer::-webkit-media-controls-current-time-display, .audio-player-footer::-webkit-media-controls-time-remaining-display, .audio-player-footer::-webkit-media-controls-timeline, .audio-player-footer::-webkit-media-controls-volume-slider { color: white !important; filter: none !important; }
 
         /* Light mode adjustments for audio player */
         body:not(.dark) .audio-player-footer {
@@ -171,18 +166,8 @@
             border: 1px solid rgba(0,0,0,.08);
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-        body:not(.dark) .audio-player-footer::-webkit-media-controls-panel {
-            background-color: transparent !important;
-            color: #333 !important; /* Darker controls for light background */
-        }
-        body:not(.dark) .audio-player-footer::-webkit-media-controls-play-button,
-        body:not(.dark) .audio-player-footer::-webkit-media-controls-current-time-display,
-        body:not(.dark) .audio-player-footer::-webkit-media-controls-time-remaining-display,
-        body:not(.dark) .audio-player-footer::-webkit-media-controls-timeline,
-        body:not(.dark) .audio-player-footer::-webkit-media-controls-volume-slider {
-            filter: none !important;
-            color: #333 !important; /* Darker controls for light background */
-        }
+        body:not(.dark) .audio-player-footer::-webkit-media-controls-panel { background-color: transparent !important; color: #333 !important; }
+        body:not(.dark) .audio-player-footer::-webkit-media-controls-play-button, body:not(.dark) .audio-player-footer::-webkit-media-controls-current-time-display, body:not(.dark) .audio-player-footer::-webkit-media-controls-time-remaining-display, body:not(.dark) .audio-player-footer::-webkit-media-controls-timeline, body:not(.dark) .audio-player-footer::-webkit-media-controls-volume-slider { filter: none !important; color: #333 !important; }
 
         /* Heart effect styling */
         .heart-container {
@@ -191,49 +176,37 @@
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none; /* Allows clicks to pass through */
-            overflow: hidden; /* Prevents hearts from creating scrollbars */
-            z-index: 9999; /* Ensures hearts are on top of other content */
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 9999;
         }
-
         .heart {
             position: absolute;
-            font-size: 20px; /* Base size */
-            color: #f472b6; /* Fuchsia color from your theme */
-            /* Animation properties will be set via JS to use custom properties */
+            font-size: 20px;
+            color: #f472b6;
             animation: floatEverywhere ease-out forwards; 
-            opacity: 0; /* Start hidden */
-            text-shadow: 0 0 5px rgba(255,255,255,0.5); /* Subtle glow */
-            /* Initial transform for animation */
+            opacity: 0;
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
             transform: scale(0.5);
         }
-
         @keyframes floatEverywhere {
-            0% {
-                opacity: 0;
-                transform: scale(0.5) translateX(0) translateY(0) rotate(0deg);
-            }
-            20% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-                /* Move from its initial position (left, top set in JS) by these offsets */
-                transform: scale(1.5) translateX(var(--offset-x)) translateY(var(--offset-y)) rotate(var(--rotate-end, 0deg));
-            }
+            0% { opacity: 0; transform: scale(0.5) translateX(0) translateY(0) rotate(0deg); }
+            20% { opacity: 1; }
+            100% { opacity: 0; transform: scale(1.5) translateX(var(--offset-x)) translateY(var(--offset-y)) rotate(var(--rotate-end, 0deg)); }
         }
     </style>
 </head>
 <body class="min-h-screen bg-neutral-950 relentlessly text-neutral-100 antialiased selection:bg-fuchsia-500/20 selection:text-white">
+    <!-- Nền cố định -->
     <div class="aurora"></div>
-    <div class="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(60%_60%_at_10%_10%,rgba(168,85,247,.15),transparent),radial-gradient(40%_40%_at_90%_10%,rgba(34,211,238,.12),transparent),radial-gradient(40%_40%_at_50%_90%,rgba(236,72,153,.10),transparent)]"></div>
+    <div class="fixed-gradient-background"></div>
 
     <header id="nav" class="sticky top-0 z-50">
         <div class="mx-auto max-w-7xl px-4">
             <div class="mt-4 mb-3 flex items-center justify-between rounded-2xl glass px-4 py-3 transition-all dark:glass">
                 <a href="#" class="flex items-center gap-2">
                     <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-tr from-cyan-400 to-fuchsia-500 text-neutral-900 font-extrabold">T</span>
-                    <span class="text-lg font-semibold tracking-wide">Thanh&nbsp;Thanh</span>
+                    <span class="text-lg font-semibold tracking-wide">Chang&nbsp;Chang</span>
                 </a>
                 <nav class="hidden gap-6 md:flex text-sm text-neutral-300">
                     <a href="#hero" class="hover:text-white">Giới thiệu</a>
@@ -504,7 +477,6 @@
                 clearInterval(heartInterval);
             }
         });
-
     </script>
 </body>
 </html>
