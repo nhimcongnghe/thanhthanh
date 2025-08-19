@@ -194,6 +194,43 @@
             20% { opacity: 1; }
             100% { opacity: 0; transform: scale(1.5) translateX(var(--offset-x)) translateY(var(--offset-y)) rotate(var(--rotate-end, 0deg)); }
         }
+
+        /* CSS cho khung ảnh đầu tiên (hero image) */
+        .hero-image-frame {
+            position: relative;
+            /* Thêm box-shadow ban đầu */
+            box-shadow: 0 0 20px rgba(34, 211, 238, 0.4), 0 0 40px rgba(244, 114, 182, 0.3); /* Cyan và Fuchsia glow */
+            animation: heartbeat-glow 1.5s infinite alternate ease-in-out; /* Hiệu ứng tim đập, tốc độ 1.5s */
+        }
+
+        /* Keyframes cho hiệu ứng tim đập trên viền */
+        @keyframes heartbeat-glow {
+            0% {
+                box-shadow: 
+                    0 0 20px rgba(34, 211, 238, 0.4), /* Cyan */
+                    0 0 40px rgba(244, 114, 182, 0.3); /* Fuchsia */
+            }
+            25% {
+                box-shadow: 
+                    0 0 30px rgba(34, 211, 238, 0.6), /* Sáng hơn và lan tỏa hơn */
+                    0 0 50px rgba(244, 114, 182, 0.5); /* Sáng hơn và lan tỏa hơn */
+            }
+            50% {
+                box-shadow: 
+                    0 0 20px rgba(34, 211, 238, 0.4),
+                    0 0 40px rgba(244, 114, 182, 0.3);
+            }
+            75% {
+                box-shadow: 
+                    0 0 25px rgba(34, 211, 238, 0.5), /* Sáng vừa và lan tỏa vừa */
+                    0 0 45px rgba(244, 114, 182, 0.4); /* Sáng vừa và lan tỏa vừa */
+            }
+            100% {
+                box-shadow: 
+                    0 0 20px rgba(34, 211, 238, 0.4),
+                    0 0 40px rgba(244, 114, 182, 0.3);
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen bg-neutral-950 relentlessly text-neutral-100 antialiased selection:bg-fuchsia-500/20 selection:text-white">
@@ -205,7 +242,7 @@
         <div class="mx-auto max-w-7xl px-4">
             <div class="mt-4 mb-3 flex items-center justify-between rounded-2xl glass px-4 py-3 transition-all dark:glass">
                 <a href="#" class="flex items-center gap-2">
-                    <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-tr from-cyan-400 to-fuchsia-500 text-neutral-900 font-extrabold">T</span>
+                    <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-tr from-cyan-400 to-fuchsia-500 text-neutral-900 font-extrabold">C</span>
                     <span class="text-lg font-semibold tracking-wide">Chang&nbsp;Chang</span>
                 </a>
                 <nav class="hidden gap-6 md:flex text-sm text-neutral-300">
@@ -224,9 +261,9 @@
     <section id="hero" class="relative">
         <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 md:grid-cols-2 md:py-24">
             <div>
-                <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-neutral-300">Chào bạn đến với thế giới của Thanh Thanh! ✨</span>
+                <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-neutral-300">Chào bạn đến với thế giới của Chang Chang! ✨</span>
                 <h1 class="mt-4 text-4xl font-extrabold leading-tight md:text-6xl">
-                    Sống động cùng <span class="gradient-text"><br>Chang Chang</br></span>
+                    Sống động cùng <span class="gradient-text">Chang Chang</span>
                 </h1>
                 <p class="mt-4 max-w-xl text-neutral-300">Cô nàng streamer đầy năng lượng, mang đến những buổi stream đáng yêu, những khoảnh khắc gaming hài hước và những tràng cười sảng khoái!</p>
                 <div class="mt-6 flex flex-wrap gap-3">
@@ -235,9 +272,9 @@
                 </div>
             </div>
             <div class="relative">
-                <div class="absolute -inset-6 -z-10 rounded-3xl bg-gradient-to-tr from-fuchsia-500/20 via-cyan-400/20 to-transparent blur-2xl"></div>
-                <figure class="aspect-[16/10] w-full overflow-hidden rounded-3xl border border-white/10 bg-black/40 shadow-2xl">
-                    <img src="https://sv2.anhsieuviet.com/2025/08/12/Untitled.jpg" alt="Ảnh đại diện Thanh Thanh" class="h-full w-full object-cover" loading="lazy" />
+                <!-- Đã thêm class 'hero-image-frame' vào thẻ figure -->
+                <figure class="aspect-[16/10] w-full overflow-hidden rounded-3xl border border-white/10 bg-black/40 shadow-2xl hero-image-frame">
+                    <img src="https://sv2.anhsieuviet.com/2025/08/19/5efa0c29d3c66a0ea.jpg" alt="Ảnh đại diện Chang Chang" class="h-full w-full object-cover" loading="lazy" />
                 </figure>
             </div>
         </div>
@@ -253,21 +290,21 @@
             <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                 <article class="group rounded-2xl border border-white/10 p-5 transition hover:-translate-y-1 hover:bg-white/5">
                     <div class="mb-3 aspect-[16/9] overflow-hidden rounded-xl bg-neutral-900">
-                        <img src="https://sv2.anhsieuviet.com/2025/08/12/Untitled2.jpg" alt="Gaming Highlights" class="h-full w-full object-cover">
+                        <img src="https://sv2.anhsieuviet.com/2025/08/19/68b586c82c508d0e3.jpg" alt="Gaming Highlights" class="h-full w-full object-cover">
                     </div>
                     <h3 class="font-semibold">Những pha tấu hài đỉnh cao</h3>
                     <p class="mt-1 text-sm text-neutral-300">Cùng Chang Chang trải nghiệm những khoảnh khắc ấn tượng trong các buổi live nhé😊</p>
                 </article>
                 <article class="group rounded-2xl border border-white/10 p-5 transition hover:-translate-y-1 hover:bg-white/5">
                     <div class="mb-3 aspect-[16/9] overflow-hidden rounded-xl bg-neutral-900">
-                        <img src="https://sv2.anhsieuviet.com/2025/08/12/Untitled3.jpg" alt="Chatting Fun" class="h-full w-full object-cover">
+                        <img src="https://sv2.anhsieuviet.com/2025/08/19/75207731ac1a0a0c4.jpg" alt="Chatting Fun" class="h-full w-full object-cover">
                     </div>
                     <h3 class="font-semibold">Chém gió xuyên màn đêm</h3>
                     <p class="mt-1 text-sm text-neutral-300">Nơi Chang Chang chia sẻ câu chuyện, lắng nghe và giao lưu cùng bạn bè.</p>
                 </article>
                 <article class="group rounded-2xl border border-white/10 p-5 transition hover:-translate-y-1 hover:bg-white/5">
                     <div class="mb-3 aspect-[16/9] overflow-hidden rounded-xl bg-neutral-900">
-                        <img src="https://sv2.anhsieuviet.com/2025/08/12/Untitled4.jpg" alt="Special Events" class="h-full w-full object-cover">
+                        <img src="https://sv2.anhsieuviet.com/2025/08/19/868882f5e2780be81.jpg" alt="Special Events" class="h-full w-full object-cover">
                     </div>
                     <h3 class="font-semibold">Các sự kiện đặc biệt</h3>
                     <p class="mt-1 text-sm text-neutral-300">Đừng bỏ lỡ những buổi stream sự kiện, mini game hay những màn cover bất ngờ từ Chang Chang!</p>
@@ -281,11 +318,11 @@
                 <span class="text-xs text-neutral-400">// Bộ sưu tập ảnh & video</span>
             </header>
             <div class="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
-                <img class="h-28 w-full rounded-xl object-cover slide-in-right" loading="lazy" src="https://sv2.anhsieuviet.com/2025/08/12/TikVid.io_7454945722950061320_5.jpg" alt="Khoảnh khắc 1"/>
-                <img class="h-28 w-full rounded-xl object-cover slide-in-right" loading="lazy" src="https://sv2.anhsieuviet.com/2025/08/12/TikVid.io_7454945722950061320_4.jpg" alt="Khoảnh khắc 2"/>
-                <img class="h-28 w-full rounded-xl object-cover slide-in-right" loading="lazy" src="https://sv2.anhsieuviet.com/2025/08/12/TikVid.io_7454945722950061320_3.jpg" alt="Khoảnh khắc 3"/>
-                <img class="h-28 w-full rounded-xl object-cover slide-in-right" loading="lazy" src="https://sv2.anhsieuviet.com/2025/08/12/TikVid.io_7454945722950061320_2.jpg" alt="Khoảnh khắc 4"/>
-                <img class="h-28 w-full rounded-xl object-cover slide-in-right" loading="lazy" src="https://sv2.anhsieuviet.com/2025/08/12/TikVid.io_7454945722950061320_1.jpg" alt="Khoảnh khắc 5"/>
+                <img class="h-28 w-full rounded-xl object-cover slide-in-right" loading="lazy" src="https://sv2.anhsieuviet.com/2025/08/19/1fb991e3bfad78ca5.jpg" alt="Khoảnh khắc 1"/>
+                <img class="h-28 w-full rounded-xl object-cover slide-in-right" loading="lazy" src="https://sv2.anhsieuviet.com/2025/08/19/28ee542689f01a15e.jpg" alt="Khoảnh khắc 2"/>
+                <img class="h-28 w-full rounded-xl object-cover slide-in-right" loading="lazy" src="https://sv2.anhsieuviet.com/2025/08/19/4d3b84cecd0419268.jpg" alt="Khoảnh khắc 3"/>
+                <img class="h-28 w-full rounded-xl object-cover slide-in-right" loading="lazy" src="https://sv2.anhsieuviet.com/2025/08/19/9437606a931c32d47.jpg" alt="Khoảnh khắc 4"/>
+                <img class="h-28 w-full rounded-xl object-cover slide-in-right" loading="lazy" src="https://sv2.anhsieuviet.com/2025/08/19/10fbe8f292987b9471.jpg" alt="Khoảnh khắc 5"/>
                 <img class="h-28 w-full rounded-xl object-cover slide-in-right" loading="lazy" src="https://images.unsplash.com/photo-1542728928-1413d1894ed1?q=80&w=500&auto=format&fit=crop" alt="Khoảnh khắc 6"/>
             </div>
         </section>
@@ -305,7 +342,7 @@
                     <label class="mb-2 block text-sm">Email của bạn</label>
                     <input type="email" placeholder="email@example.com" class="ring-focus mb-4 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2 outline-none placeholder:text-neutral-400" />
                     <label class="mb-2 block text-sm">Lời nhắn cho Chang Chang</label>
-                    <textarea placeholder="Bạn muốn nói gì với Thanh Thanh?" rows="3" class="ring-focus mb-4 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2 outline-none placeholder:text-neutral-400"></textarea>
+                    <textarea placeholder="Bạn muốn nói gì với Chang Chang?" rows="3" class="ring-focus mb-4 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2 outline-none placeholder:text-neutral-400"></textarea>
                     <button class="w-full rounded-xl bg-gradient-to-tr from-cyan-400 to-fuchsia-500 px-4 py-2 font-semibold text-neutral-900">Gửi lời nhắn</button>
                 </form>
             </div>
